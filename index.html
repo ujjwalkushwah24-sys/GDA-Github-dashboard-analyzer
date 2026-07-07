@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GitHub Analytics Dashboard — visualize any GitHub profile" />
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#6366f1">
+
+  <title>GitHub Analytics Dashboard</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/themes.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="icon" href="data:,">
+
+  <!-- Chart.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+</head>
+
+<body>
+  <a href="#mainContent" class="skip-link">Skip to main content</a>
+  <!-- ── HEADER ── -->
+  <header class="site-header">
+    <div class="container">
+
+      <div class="header-left">
+        <svg class="logo-icon" width="28" height="28" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          aria-hidden="true">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61
+                   c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77
+                   A5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0
+                   0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77
+                   a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7
+                   A3.37 3.37 0 0 0 9 18.13V22"/>
+        </svg>
+        <span class="site-title">GitHub Analytics</span>
+      </div>
+
+      <div class="header-right">
+        <!-- Dark mode toggle -->
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+          title="Toggle dark mode">
+          <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ── SEARCH SECTION ── -->
+  <section class="search-section" aria-label="Search GitHub profiles">
+    <div class="container">
+      <h1 class="search-heading">Explore GitHub Profiles</h1>
+      <p class="search-subheading">Visualize activity, compare developers, and get AI-powered improvement tips</p>
+
+      <div class="search-bar" role="search">
+        <input
+          type="text"
+          id="usernameInput"
+          class="search-input"
+          placeholder="Enter GitHub username…"
+          aria-label="GitHub username"
+          autocomplete="off"
+          spellcheck="false" />
+        <button class="btn btn-primary" id="searchBtn" aria-label="Search">
+          Analyze
+        </button>
+      </div>
+
+      <!-- Compare mode: up to 2 extra username inputs, hidden by default -->
+      <div class="compare-inputs" id="compareInputs" aria-label="Add profiles to compare">
+        <input
+          type="text"
+          class="search-input compare-input"
+          placeholder="Compare with username 2…"
+          aria-label="Second GitHub username" />
+        <input
+          type="text"
+          class="search-input compare-input"
+          placeholder="Compare with username 3…"
+          aria-label="Third GitHub username" />
+      </div>
+
+      <button class="btn btn-secondary" id="compareToggle" aria-expanded="false">
+        + Compare profiles
+      </button>
+
+    </div>
+  </section>
+
+  <!-- ── MAIN CONTENT ── -->
+  <!-- Everything below is dynamically injected by JavaScript -->
+  <main class="main-content" id="mainContent" aria-live="polite">
+
+    <!-- Empty state shown before any search -->
+    <div class="empty-state" id="emptyState">
+      <p>Search for a GitHub username above to get started</p>
+    </div>
+
+    <!-- Dashboard, charts, comparison, suggestions all inject here -->
+
+  </main>
+
+
+  <!-- JS — order matters: theme first, main last -->
+  <script src="js/theme.js"></script>
+  <script src="js/cache.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/dataTransformer.js"></script>
+  <script src="js/stats.js"></script>
+  <script src="js/chartHelpers.js"></script>
+  <script src="js/scoreEngine.js"></script>
+  <script src="js/comparator.js"></script>
+  <script src="js/radarChart.js"></script>
+  <script src="js/ruleEngine.js"></script>
+  <script src="js/aiSuggestions.js"></script>
+  <script src="js/suggestionRenderer.js"></script>
+  <script src="js/domRenderer.js"></script>
+  <script src="js/loadingState.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+# No node_modules since we have none — but good habit
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/settings.json
+*.log
+
+# IMPORTANT: if you ever hardcode a token during dev, never commit it
+# Add a reminder here
+# config.local.js
